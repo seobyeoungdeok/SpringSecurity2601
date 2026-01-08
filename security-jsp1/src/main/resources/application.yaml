@@ -1,3 +1,13 @@
-spring:
-  application:
-    name: security-jsp1
+server:
+  port: 8000
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+logging:
+  pattern:
+    console: "${LOGPATTERN_CONSOLE:%green(%d{HH:mm:ss.SSS}) %blue(%-5level) %red([%thread]) %yellow(%logger{15}:%line)-%msg%n}"
+  level:
+    org.springframework.security: ${SPRING_SECURITY_LOG_LEVEL:TRACE}
