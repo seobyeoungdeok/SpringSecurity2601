@@ -1,2 +1,2 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-index.jsp페이지
+{{WEB-INF/index.jsp }}index.jsp페이지
