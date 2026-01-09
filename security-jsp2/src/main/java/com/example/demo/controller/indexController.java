@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 // 역할(ROLE - 인가) : user, manager, admin
 
 @Log4j2
-//@Controller - 각 메서드가 view를 리턴한다.
-@RestController
+@Controller  //- 각 메서드가 view를 리턴한다.
 public class indexController {
     @GetMapping({"","/"})
     public String home(){
         log.info("home");
-        return "home";
+        //-> /WEB-INF/views/{{index}}.jsp
+        return "index";// -> ViewResolver
     }//end of home
     @GetMapping({"","/user"})
     public String user(){
