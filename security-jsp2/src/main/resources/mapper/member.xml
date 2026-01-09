@@ -5,11 +5,11 @@
     <insert id="memberInsert" parameterType="map">
         insert into member202601(id,username,password
                                 ,email,role,createDate)
-        values(seq_member202210_no.nextval,#{username},#{password},#{email},#{role},to_char(sysdate,'YYYY-MM-DD'))
+        values(seq_member202601_no.nextval,#{username},#{password},#{email},#{role},to_char(sysdate,'YYYY-MM-DD'))
     </insert>
     <select id="login" parameterType="string" resultType="com.example.demo.model.User">
         SELECT id, username, password, role, email, createDate
-        FROM member202210
+        FROM member202601
         WHERE username = #{value}
     </select>
 </mapper>

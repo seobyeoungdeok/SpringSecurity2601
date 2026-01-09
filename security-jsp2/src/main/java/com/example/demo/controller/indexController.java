@@ -31,5 +31,28 @@ public class indexController {
     public String admin(){
         log.info("admin");
         return "admin";
-    }//end of admin
+    }//end of home
+    //로그인 화면 요청하기
+    @GetMapping("/loginForm")
+    public String loginForm(){
+        log.info("loginForm");
+        return "auth/loginForm";
+    }//end of loginForm
+
+    //회원가입 호출하기
+    @GetMapping("/joinForm")
+    public String joinForm(){
+        log.info("joinForm");
+        // auth/joinForm -> 응답페이지 화면 이름이다.
+        // yaml -> /WEB-INF/views/ 접두어
+        // 접미어     -> .jsp
+        return "auth/joinForm";
+    }
+    @GetMapping("/login-error")
+    public String loginError(){
+        log.info("login-error");
+        return "login-error";
+    }
+
+
 }

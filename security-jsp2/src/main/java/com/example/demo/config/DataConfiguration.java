@@ -24,7 +24,7 @@ import lombok.extern.log4j.Log4j2;
 */
 @Log4j2
 @Configuration
-public class DatabaseConfiguration {
+public class DataConfiguration {
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     public HikariConfig hikariConfig() {

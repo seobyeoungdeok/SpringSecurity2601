@@ -12,4 +12,5 @@ public class User {
     private String createDate;
     //소셜 로그인 - 카카오
     private String provider;//google, kakao, naver
+    private String providerId; //uid, 카카오식별자, 네이버 식별자
 }
