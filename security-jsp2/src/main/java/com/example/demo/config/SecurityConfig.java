@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -17,6 +18,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity //시큐어 어노테이션 활성화
 public class SecurityConfig {
     @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -25,14 +30,22 @@ public class SecurityConfig {
                         .requestMatchers("/manager/**").hasAnyRole("MANAGER", "ADMIN")
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                         .anyRequest().permitAll())
-                .formLogin(Customizer.withDefaults())
-                .loginPage("/loginForm")
-                .loginProcessingUrl("./login")
-                .defaultSuccessUrl("/")
-                .failureUrl("/custom-login?error=true")
-                .permitAll();
+                .formLogin(form -> form
+                        .loginPage("/loginForm")
+                        .loginProcessingUrl("./login")
+                        .defaultSuccessUrl("/")
+                        .failureUrl("/custom-login?error=true")
+                        .permitAll()
+                )
+                //로그아웃 설정 추가
+                .logout(logout -> logout
+                        .logoutUrl("/logout")//로그아웃 처리 URL(디폴트)
+                        .logoutSuccessUrl("/") //로그아웃 후 이동할 URL
+                        .invalidateHttpSession(true) //세션 무효화(기본값 true)
+                        .deleteCookies("JSESSIONID")//쿠키 삭제
+                        .permitAll());
+        return http.build();
     }
-
     @Bean
     public InMemoryUserDetailsManager userDetailsService(){
         //admin계정생성(ROLE_ADMIN)
