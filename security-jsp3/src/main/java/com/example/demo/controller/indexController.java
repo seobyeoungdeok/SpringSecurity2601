@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.ui.Model;
 import com.example.demo.model.User;
 import com.example.demo.service.MemberService;
 import jakarta.annotation.security.RolesAllowed;
@@ -22,13 +23,17 @@ public class indexController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     //http://localhost:8000 or http://localhost:8000/
     @GetMapping({"","/"})
-    public String index(){
+    public String index(HttpServletRequest req, Model model){
         log.info("index");
-        //-> /WEB-INF/views/{{index}}.jsp
-        // 어노테이션이 RestController에서 Controller 변경됨
-        // @RestController = @Controller + @ResponseBody -> 문자열 포맷
-        // @Controller => 문자열이 출력으로 나갈 화면 이름이다.
-        return "index";// -> ViewResolver
+        log.info("index user호출: " + req.isUserInRole("ROLE_USER"));
+        log.info("index admin호출: " + req.isUserInRole("ROLE_ADMIN"));
+        String role = "default";
+        if(req.isUserInRole("ROLE_ADMIN")) role = "ROLE_ADMIN";
+        else if(req.isUserInRole("ROLE_MANAGER")) role = "ROLE_MAMAGER";
+        else if(req.isUserInRole("ROLE_USER")) role = "ROLE_USER";
+        //jsp화면에 상태값을 전달하기 - Model의 scope는 request 스코프 - forward
+        model.addAttribute("role", role);
+        return "redirect:/index.jsp";// -> ViewResolver
     }//end of home
     //http://localhost:8000/user
     //@RestController =  @Controller + @ResponseBody
@@ -66,7 +71,7 @@ public class indexController {
     @GetMapping("/loginForm")
     public String loginForm(){
         log.info("loginForm");
-        return "redirect:auth/loginForm";
+        return "redirect:/auth/loginForm";
     }//end of loginForm
 
     //회원가입 호출하기

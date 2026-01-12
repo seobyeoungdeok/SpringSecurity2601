@@ -16,7 +16,7 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
-      datasource:
+  datasource:
         hikari:
           jdbc-url: jdbc:oracle:thin:@127.0.0.1:1521/orcl11
           username: scott
