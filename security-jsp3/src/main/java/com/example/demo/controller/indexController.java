@@ -37,13 +37,13 @@ public class indexController {
         return "user";
     }//end of home
     //http://localhost:8000/manager
-    @GetMapping("/manager")
+    @GetMapping({"/manager"})
     public String manager(){
         log.info("manager");
         return "manager";
     }//end of manager
     //http://localhost:8000/admin
-    @GetMapping("/admin")
+    @GetMapping({"/admin"})
     public String admin(){
         log.info("admin");
         return "admin";
