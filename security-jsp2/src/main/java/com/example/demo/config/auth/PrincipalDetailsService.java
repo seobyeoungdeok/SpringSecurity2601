@@ -34,7 +34,7 @@ public class PrincipalDetailsService implements UserDetailsService {
         log.info(user.toString());//오라클 서버에서 가져온 값
         if(user !=null){//DB에서 찾아온 정보를 들고 있으면
             //Authentication에 담을 수 있는 타입으로 변경해줘
-            return new PrincipalDetails(user);
+            return (org.springframework.security.core.userdetails.UserDetails) new PrincipalDetails(user);
         }
         return null;
     }

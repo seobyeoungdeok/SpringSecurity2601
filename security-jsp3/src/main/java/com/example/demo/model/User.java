@@ -8,7 +8,7 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String role;
+    private String role;//ROLE_USER,ROLE_MANAGER ,ROLE_ADMIN
     private String createDate;
     //소셜 로그인 - 카카오
     private String provider;//google, kakao, naver

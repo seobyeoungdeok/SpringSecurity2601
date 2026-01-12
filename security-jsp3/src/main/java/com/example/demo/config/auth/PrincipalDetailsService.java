@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import javax.management.relation.Relation;
+
 // 이 클래스는 언제 동작되냐면
 // 시큐리티 설정에서 loginProcessingUrl("/login")
 //-> /login요청이 오면 자동으로 UserDetailsService타입으로 IoC되어 있는 loadUserByUsername가
@@ -29,12 +32,12 @@ public class PrincipalDetailsService implements UserDetailsService {
         // User타입은 Authentication에 직접 담을 수 없음.
         // Authentication에 담을 수 있는 타입은 오직 UserDetails타입만 가능함.
         //select * from member202601 where username=?
-        User user = memberDao.login(username);
-        log.info(user.getRole());
-        log.info(user.toString());//오라클 서버에서 가져온 값
-        if(user !=null){//DB에서 찾아온 정보를 들고 있으면
+        com.example.demo.model.User userEntity = memberDao.login(username);
+        log.info(userEntity.getRole());
+        log.info(userEntity.toString());//오라클 서버에서 가져온 값
+        if(userEntity !=null){//DB에서 찾아온 정보를 들고 있으면
             //Authentication에 담을 수 있는 타입으로 변경해줘
-            return new PrincipalDetails(user);
+            return new PrincipalDetails(userEntity);
         }
         return null;
     }

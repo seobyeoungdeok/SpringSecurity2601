@@ -21,9 +21,9 @@ Authentication객체는 PrincipalDetailsService에서 만들어줌
 public class PrincipalDetails implements UserDetails {
     //우리 서비스 사용자 엔티티
     //DB에서 조회한 사용자 정보
-    private User user;
+    private com.example.demo.model.User user;
     //생성자 : 로그인시 DB에서 조회된 User받아서 PrincipalDetails로 감싼다.
-    public PrincipalDetails(User user) {
+    public PrincipalDetails(com.example.demo.model.User user) {
         this.user = user;
     }
     // 점검해야 할 포인트
