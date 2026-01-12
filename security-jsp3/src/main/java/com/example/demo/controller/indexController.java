@@ -101,7 +101,7 @@ public class indexController {
     @PostMapping("/join")
     public String join(User user){
         log.info("join");
-        user.setRole("ROLE_USER");
+        user.setRole("ROLE_MANAGER");
         // 패스워드 암호화하기
         String rawPassword =  user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
@@ -109,6 +109,6 @@ public class indexController {
         //왜냐면 암호화가 되지 않은 비번에 대해서는 처리 안됨
         user.setPassword(encPassword);
         memberService.memberInsert(user);
-        return "auth/loginForm";//회원가입이 되면 이 요청을 보냄
+        return "redirect:/auth/loginForm.jsp";//회원가입이 되면 이 요청을 보냄
     }
 }
